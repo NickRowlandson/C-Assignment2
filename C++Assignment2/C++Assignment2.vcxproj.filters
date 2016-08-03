@@ -28,7 +28,5 @@
     <Text Include="referenceCode.txt">
       <Filter>Resource Files</Filter>
     </Text>
-    <Text Include="names.txt" />
-    <Text Include="quiz.txt" />
   </ItemGroup>
 </Project>
