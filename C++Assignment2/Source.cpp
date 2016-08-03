@@ -12,7 +12,6 @@ void HighScoreManager::UpdateHighScore() {
 	//FUNCTION NOT REQUIRED
 }
 
-
 void HighScoreManager::PrintHighScore() {
 
 	// LOOP THROUGH DAT FILE AND PRINT TABLE OF HIGH SCORES
@@ -74,7 +73,7 @@ bool User::CheckIfUserExist(string username) {
 	}
 }
 
-void User::UpdateUserList(string user) {
+void User::UpdateUserVector() {
 	// clear elements in vector
 	lines.clear();
 	// open file stream
@@ -90,13 +89,41 @@ void User::UpdateUserList(string user) {
 		}
 	}
 }
+void HighScoreManager::UpdateScoreVector() {
+	// clear elements in vector
+	lines2.clear();
+	// open file stream
+	ifstream file("highScore.dat");
+
+	string line2;
+	// add each line in names.txt to the vector
+	while (getline(file, line2))
+	{
+		if (!line2.empty())
+		{
+			lines2.push_back(line2);
+		}
+	}
+}
 
 void User::DeleteUser(string user) {
-
+	user1.UpdateUserVector();
+	//DELETE USER
+}
+void User::UpdateUserInfo(string user) {
+	string name;
+	user1.UpdateUserVector();
+	cout << endl << "Enter you first and last name: ";
+	cin >> name;
+	// UPDATE name to new name
 }
 
 void User::SetHighScore(string user) {
 	int newScore;
+
+	user1.UpdateUserVector();
+	score1.UpdateScoreVector();
+
 	cout << endl << "Enter your new high score: ";
 	cin >> newScore;
 	// UPDATE TXT AND DAT FILE WITH NEW HIGH SCORE HERE.
@@ -127,7 +154,7 @@ int main(){
 			cout << "HIGH SCORE UPDATED" << endl;
 		}
 		else if (selection == 2) {
-			user1.UpdateUserList(currentUser);
+			user1.UpdateUserInfo(currentUser);
 			cont = true;
 			cout << "USER UPDATED" << endl;
 		}
