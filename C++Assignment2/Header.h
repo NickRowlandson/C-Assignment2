@@ -30,7 +30,7 @@ class User {
 public:
 	User();
 	void Login();
-	void CheckIfUserExist();
+	bool CheckIfUserExist(string);
 	void UpdateUserList();
 	void DeleteUser();
 	void SetHighScore();

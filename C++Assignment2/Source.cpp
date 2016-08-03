@@ -19,7 +19,7 @@ void User::Login() {
 
 }
 
-void User::CheckIfUserExist() {
+bool User::CheckIfUserExist(string) {
 
 }
 
@@ -38,8 +38,13 @@ void User::SetHighScore() {
 
 // MAIN
 int main(){
-	string kappa;
-	cout << "WELCOME TO: High Score Manager!";
-	cin >> kappa;
+	User user1;
+	string user;
+	cout << "WELCOME TO: High Score Manager!" << endl;
+	cout << "Enter your username: ";
+	cin >> user;
+
+	user1.CheckIfUserExist(user);
+	
 };
 
