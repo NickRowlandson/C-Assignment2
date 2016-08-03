@@ -1,3 +1,4 @@
+#pragma once
 #ifndef HEADER_H
 #define HEADER_H
 #include <fstream>
@@ -16,7 +17,7 @@ vector<string> lines;
 // HighScoreManager class
 class HighScoreManager {
 public:
-	HighScoreManager();
+	//HighScoreManager();
 	void CreateHighScore();
 	void UpdateHighScore();
 	void PrintHighScore();
@@ -30,9 +31,9 @@ private:
 // User class
 class User {
 public:
-	User();
+	//User();
 	void Login();
-	void CheckIfUserExist(string);
+	bool CheckIfUserExist(string);
 	void UpdateUserList();
 	void DeleteUser();
 	void SetHighScore();

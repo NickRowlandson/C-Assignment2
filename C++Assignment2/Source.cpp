@@ -19,7 +19,7 @@ void User::Login() {
 
 }
 
-void User::CheckIfUserExist(string username) {
+bool User::CheckIfUserExist(string username) {
 	currentUser = username;
 	bool userFound = false;
 	bool endLoop = true;
@@ -33,7 +33,6 @@ void User::CheckIfUserExist(string username) {
 		// if there is already user in names.txt, display previous score and set oldScore global variable
 		if (name.find(username) != string::npos)
 		{
-			cout << "Welcome back, " + currentUser + "!" << endl;
 			userFound = true;
 			endLoop = false;
 		}
@@ -43,16 +42,11 @@ void User::CheckIfUserExist(string username) {
 	if (!userFound)
 	{
 		cout << "Welcome, " + currentUser + "!" << endl;
-		ofstream out;
-
-		// append new user name and empty score to names.txt
-		out.open("names.txt", ios::app);
-
-		out << endl << username;
-		out << endl << 0;
-		out << endl << 0;
-		out << endl << 0;
-		out << endl << 0;
+		return false;
+	}
+	else {
+		cout << "Welcome back, " + currentUser + "!" << endl;
+		return true;
 	}
 }
 
@@ -90,7 +84,16 @@ int main(){
 	cout << "Enter your username: ";
 	cin >> user;
 
-	user1.CheckIfUserExist(user);
+	if(user1.CheckIfUserExist(user)){
+
+	}else{
+		ofstream out;
+		// append new user name and empty score to names.txt
+		out.open("names.txt", ios::app);
+
+		out << endl << user;
+		out << endl << 0;
+	}
 	
 };
 
