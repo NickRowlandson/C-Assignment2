@@ -1,5 +1,15 @@
 #ifndef HEADER_H
 #define HEADER_H
+#include <fstream>
+#include <string>
+#include <iostream>
+#include <algorithm>
+#include <stdio.h>
+#include <ctype.h>
+#include <vector>
+#include <regex>
+
+using namespace std;
 
 // HighScoreManager class
 class HighScoreManager {

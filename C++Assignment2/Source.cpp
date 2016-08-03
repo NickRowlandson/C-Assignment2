@@ -1,15 +1,4 @@
-#include <fstream>
-#include <string>
-#include <iostream>
-#include <algorithm>
-#include <stdio.h>
-#include <ctype.h>
-#include <vector>
-#include <regex>
 #include "Header.h"
-
-using namespace std;
-
 
 // HIGHSCOREMANAGER CLASS METHODS
 void HighScoreManager::CreateHighScore() {
@@ -49,6 +38,8 @@ void User::SetHighScore() {
 
 // MAIN
 int main(){
-
+	string kappa;
+	cout << "WELCOME TO: High Score Manager!";
+	cin >> kappa;
 };
 
