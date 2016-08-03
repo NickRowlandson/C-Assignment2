@@ -81,19 +81,60 @@ void User::SetHighScore() {
 int main(){
 	User user1;
 	string user;
+	int selection;
+	bool cont;
 	cout << "WELCOME TO: High Score Manager!" << endl;
 	cout << "Enter your username: ";
 	cin >> user;
 
-	if(user1.CheckIfUserExist(user)){
+	if(user1.CheckIfUserExist(user))
+	{
+		while (cont) 
+		{
+			cout << endl << "Menu" << endl
+				<< "1. Enter your new high score" << endl
+				<< "2. Update your information" << endl
+				<< "3. Delete information" << endl
+				<< "4. Print all high scores" << endl
+				<< "5. Exit" << endl
+				<< "Enter your selection number: ";
+			cin >> selection;
 
-	}else{
+			if (selection == 1){
+
+				cont = false;
+			}
+			else if (selection == 2){
+
+				cont = false;
+			}
+			else if (selection == 3){
+
+				cont = false;
+			}
+			else if (selection == 4){
+
+				cont = false;
+			}
+			else if (selection == 5){
+
+				cont = false;
+			}
+			else{
+				cout << "ERROR! Invalid Selection";
+				cont = true;
+			}
+		} //ENDWHILE
+	}
+	else
+	{
 		ofstream out;
 		// append new user name and empty score to names.txt
 		out.open("names.txt", ios::app);
 
 		out << endl << user;
-		out << endl << 0;
+		out << endl << "$" << 0;
+		out << endl << "#";
 	}
 	
 };
