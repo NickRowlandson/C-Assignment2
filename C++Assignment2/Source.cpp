@@ -23,10 +23,9 @@ bool User::CheckIfUserExist(string username) {
 	currentUser = username;
 	bool userFound = false;
 	bool endLoop = true;
-
-	// write questions from quiz.txt
 	ifstream file("names.txt");
 	string name;
+
 	// loop through names.txt
 	while (getline(file, name) && endLoop)
 	{
@@ -38,13 +37,15 @@ bool User::CheckIfUserExist(string username) {
 		}
 	}
 
-	// if no user is found, append new user to names.txt
+	// if no user is found, display welcome message and return false
 	if (!userFound)
 	{
 		cout << "Welcome, " + currentUser + "!" << endl;
 		return false;
 	}
-	else {
+	// if user found, display welcome back message and return true
+	else 
+	{
 		cout << "Welcome back, " + currentUser + "!" << endl;
 		return true;
 	}
