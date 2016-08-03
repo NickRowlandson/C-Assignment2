@@ -40,13 +40,11 @@ bool User::CheckIfUserExist(string username) {
 	// if no user is found, display welcome message and return false
 	if (!userFound)
 	{
-		cout << "Welcome, " + currentUser + "!" << endl;
 		return false;
 	}
 	// if user found, display welcome back message and return true
 	else 
 	{
-		cout << "Welcome back, " + currentUser + "!" << endl;
 		return true;
 	}
 }
@@ -82,51 +80,13 @@ int main(){
 	User user1;
 	string user;
 	int selection;
-	bool cont;
-	cout << "WELCOME TO: High Score Manager!" << endl;
-	cout << "Enter your username: ";
+	bool cont = true;
+	cout << "WELCOME TO: High Score Manager!" << endl
+	<< "Enter your username: ";
 	cin >> user;
+	cin.ignore();
 
-	if(user1.CheckIfUserExist(user))
-	{
-		while (cont) 
-		{
-			cout << endl << "Menu" << endl
-				<< "1. Enter your new high score" << endl
-				<< "2. Update your information" << endl
-				<< "3. Delete information" << endl
-				<< "4. Print all high scores" << endl
-				<< "5. Exit" << endl
-				<< "Enter your selection number: ";
-			cin >> selection;
-
-			if (selection == 1){
-
-				cont = false;
-			}
-			else if (selection == 2){
-
-				cont = false;
-			}
-			else if (selection == 3){
-
-				cont = false;
-			}
-			else if (selection == 4){
-
-				cont = false;
-			}
-			else if (selection == 5){
-
-				cont = false;
-			}
-			else{
-				cout << "ERROR! Invalid Selection";
-				cont = true;
-			}
-		} //ENDWHILE
-	}
-	else
+	if(!user1.CheckIfUserExist(user))
 	{
 		ofstream out;
 		// append new user name and empty score to names.txt
@@ -135,7 +95,51 @@ int main(){
 		out << endl << user;
 		out << endl << "$" << 0;
 		out << endl << "#";
+
+		cout << "Welcome, " + currentUser + "!" << endl;
 	}
+	else 
+	{
+		cout << "Welcome back, " + currentUser + "!" << endl;
+	}
+
+	while (cont)
+	{
+		cout << endl << "Menu" << endl
+			<< "1. Enter your new high score" << endl
+			<< "2. Update your information" << endl
+			<< "3. Delete information" << endl
+			<< "4. Print all high scores" << endl
+			<< "5. Exit" << endl
+			<< "Enter your selection number: ";
+		cin >> selection;
+
+
+		if (selection == 1) {
+
+			cont = true;
+		}
+		else if (selection == 2) {
+
+			cont = true;
+		}
+		else if (selection == 3) {
+
+			cont = true;
+		}
+		else if (selection == 4) {
+
+			cont = true;
+		}
+		else if (selection == 5) {
+
+			cont = false;
+		}
+		else {
+			cout << "ERROR! Invalid Selection";
+			cont = true;
+		}
+	} //ENDWHILE
 	
 };
 
