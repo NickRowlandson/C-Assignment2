@@ -2,22 +2,21 @@
 
 // HIGHSCOREMANAGER CLASS METHODS
 void HighScoreManager::CreateHighScore() {
-	//FUNCTION NOT REQUIRED
+
 }
 
 void HighScoreManager::UpdateHighScore() {
-	//FUNCTION NOT REQUIRED
+
 }
 
 
 void HighScoreManager::PrintHighScore() {
 
-	// LOOP THROUGH DAT FILE AND PRINT TABLE OF HIGH SCORES
 }
 
 // USER CLASS METHODS
 void User::Login() {
-	// FUNCTION NOT REQUIRED
+
 }
 
 bool User::CheckIfUserExist(string username) {
@@ -50,7 +49,7 @@ bool User::CheckIfUserExist(string username) {
 	}
 }
 
-void User::UpdateUserList(string user) {
+void User::UpdateUserList() {
 	// clear elements in vector
 	lines.clear();
 	// open file stream
@@ -67,25 +66,21 @@ void User::UpdateUserList(string user) {
 	}
 }
 
-void User::DeleteUser(string user) {
+void User::DeleteUser() {
 
 }
 
-void User::SetHighScore(string user) {
-	int newScore;
-	cout << endl << "Enter your new high score: ";
-	cin >> newScore;
-	// UPDATE TXT AND DAT FILE WITH NEW HIGH SCORE HERE.
+void User::SetHighScore() {
+
 }
 
 
 // MAIN
 int main(){
 	User user1;
-	HighScoreManager score1;
 	string user;
 	int selection;
-	bool cont, cont2;
+	bool cont = true;
 	cout << "WELCOME TO: High Score Manager!" << endl
 	<< "Enter your username: ";
 	cin >> user;
@@ -119,29 +114,26 @@ int main(){
 			<< "Enter your selection number: ";
 		cin >> selection;
 
+
 		if (selection == 1) {
-			user1.SetHighScore(user);
+
 			cont = true;
-			cout << "HIGH SCORE UPDATED" << endl;
 		}
 		else if (selection == 2) {
-			user1.UpdateUserList(user);
+
 			cont = true;
-			cout << "USER UPDATED" << endl;
 		}
 		else if (selection == 3) {
-			user1.DeleteUser(user);
-			cont = false;
-			cout << "USER DELETED: Terminating Session" << endl;
+
+			cont = true;
 		}
 		else if (selection == 4) {
-			score1.PrintHighScore();
+
 			cont = true;
 		}
 		else if (selection == 5) {
-			cout << "Thank you for using High Score Manager.";
+
 			cont = false;
-			cont2 = false;
 		}
 		else {
 			cout << "ERROR! Invalid Selection";

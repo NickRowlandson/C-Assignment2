@@ -34,9 +34,9 @@ public:
 	//User();
 	void Login();
 	bool CheckIfUserExist(string);
-	void UpdateUserList(string);
-	void DeleteUser(string);
-	void SetHighScore(string);
+	void UpdateUserList();
+	void DeleteUser();
+	void SetHighScore();
 
 private:
 	string username;
