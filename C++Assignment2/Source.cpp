@@ -1,5 +1,8 @@
 #include "Header.h"
 
+User user1;
+HighScoreManager score1;
+
 // HIGHSCOREMANAGER CLASS METHODS
 void HighScoreManager::CreateHighScore() {
 	//FUNCTION NOT REQUIRED
@@ -17,7 +20,28 @@ void HighScoreManager::PrintHighScore() {
 
 // USER CLASS METHODS
 void User::Login() {
-	// FUNCTION NOT REQUIRED
+	string user;
+	cout << "WELCOME TO: High Score Manager!" << endl
+		<< "Enter your username: ";
+	cin >> user;
+	cin.ignore();
+
+	if (!user1.CheckIfUserExist(user))
+	{
+		ofstream out;
+		// append new user name and empty score to names.txt
+		out.open("names.txt", ios::app);
+
+		out << endl << user;
+		out << endl << "$" << 0;
+		out << endl << "#";
+
+		cout << "Welcome, " + currentUser + "!" << endl;
+	}
+	else
+	{
+		cout << "Welcome back, " + currentUser + "!" << endl;
+	}
 }
 
 bool User::CheckIfUserExist(string username) {
@@ -81,32 +105,10 @@ void User::SetHighScore(string user) {
 
 // MAIN
 int main(){
-	User user1;
-	HighScoreManager score1;
-	string user;
 	int selection;
-	bool cont;
-	cout << "WELCOME TO: High Score Manager!" << endl
-	<< "Enter your username: ";
-	cin >> user;
-	cin.ignore();
-
-	if(!user1.CheckIfUserExist(user))
-	{
-		ofstream out;
-		// append new user name and empty score to names.txt
-		out.open("names.txt", ios::app);
-
-		out << endl << user;
-		out << endl << "$" << 0;
-		out << endl << "#";
-
-		cout << "Welcome, " + currentUser + "!" << endl;
-	}
-	else 
-	{
-		cout << "Welcome back, " + currentUser + "!" << endl;
-	}
+	bool cont = true;
+	
+	user1.Login();
 
 	while (cont)
 	{
@@ -120,17 +122,17 @@ int main(){
 		cin >> selection;
 
 		if (selection == 1) {
-			user1.SetHighScore(user);
+			user1.SetHighScore(currentUser);
 			cont = true;
 			cout << "HIGH SCORE UPDATED" << endl;
 		}
 		else if (selection == 2) {
-			user1.UpdateUserList(user);
+			user1.UpdateUserList(currentUser);
 			cont = true;
 			cout << "USER UPDATED" << endl;
 		}
 		else if (selection == 3) {
-			user1.DeleteUser(user);
+			user1.DeleteUser(currentUser);
 			cont = false;
 			cout << "USER DELETED: Terminating Session" << endl;
 		}
