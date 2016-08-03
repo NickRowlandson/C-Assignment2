@@ -10,6 +10,8 @@
 #include <regex>
 
 using namespace std;
+string currentUser;
+vector<string> lines;
 
 // HighScoreManager class
 class HighScoreManager {
@@ -30,7 +32,7 @@ class User {
 public:
 	User();
 	void Login();
-	bool CheckIfUserExist(string);
+	void CheckIfUserExist(string);
 	void UpdateUserList();
 	void DeleteUser();
 	void SetHighScore();
