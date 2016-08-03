@@ -8,7 +8,7 @@
 #include <regex>
 
 /**
-* Project name: COMP2006 - Assignment 1(QUIZBOT)
+* Project name: COMP2006 - Assignment 2
 * Developed by: Nick Rowlandson(200167125), Tim Harasym(200186529)
 * Date: Wednesday, June 29th 2016
 */
