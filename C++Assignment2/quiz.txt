@@ -1,0 +1,25 @@
+-- QUESTIONS --
+#1. What is the capital of Russia?
+&a.toronto
+&b.kalamazoo
+&c.warsaw
+&D.moscow 
+$
+#2. What is the capital of Poland?
+&a. atlantis
+&b. reykjavik
+&C. warsaw
+&d. washington
+$
+#3. What is the capital of Iceland?
+&a. greenland
+&B. reykjavik
+&c. north pole
+&d. dwayne "the rock" johnson
+$
+#4. What is the capital of Uzbekistan?
+&a. cairo
+&b. doha
+&c. kabul
+&D. tashkent
+$

@@ -1,0 +1,401 @@
+#include <fstream>
+#include <string>
+#include <iostream>
+#include <algorithm>
+#include <stdio.h>
+#include <ctype.h>
+#include <vector>
+#include <regex>
+
+/**
+* Project name: COMP2006 - Assignment 1(QUIZBOT)
+* Developed by: Nick Rowlandson(200167125), Tim Harasym(200186529)
+* Date: Wednesday, June 29th 2016
+*/
+
+using namespace std;
+string currentUser;
+vector<string> lines;
+int qNum;
+double oldScore = 0, newScore;
+
+// this function gets the score for the current user
+double getScore()
+{
+	string q1, q2, q3, q4;
+	int line;
+	double score = 0;
+
+	// for each record in the vector, check if it is equal to the current user
+	for (int i = 0; i < lines.size(); i++)
+	{
+		if (currentUser == lines[i])
+		{
+			line = i;
+		}
+	}
+
+	q1 = lines[line + 1];
+	q2 = lines[line + 2];
+	q3 = lines[line + 3];
+	q4 = lines[line + 4];
+
+	// if question is equal to "1" then increment score by 1
+	if (q1 == "1")
+	{
+		score++;
+	}
+	if (q2 == "1")
+	{
+		score++;
+	}
+	if (q3 == "1")
+	{
+		score++;
+	}
+	if (q4 == "1")
+	{
+		score++;
+	}
+
+	// return the score as a percentage
+	return score / 4 * 100;
+}
+
+// this function saves the score recieved on the quiz to the names.txt file
+void saveScore()
+{
+	ofstream outputFile;
+	int count = 0;
+
+	outputFile.open("names.txt");
+
+	for (count = 0; count < lines.size(); count++)
+	{
+		outputFile << lines[count] << endl;
+	}
+
+	outputFile.close();
+}
+
+// this function sets the appropriate score in the lines vector
+void setScore(string score)
+{
+	qNum++;
+	int line;
+
+	// for each record in the vector, check if it is equal to the current user
+	for (int i = 0; i < lines.size(); i++)
+	{
+		if (currentUser == lines[i])
+		{
+			line = i;
+		}
+	}
+
+	// set specific record in vector equal to score
+	lines[line + qNum] = score;
+}
+
+// this function takes a string and checks for any uppercase characters
+bool containsUpperCase(string str)
+{
+	for (int i = 0; i < str.length(); i++)
+		if (isupper(str[i]))
+			return true;
+	return false;
+}
+
+// this function checks the inputed answer against the correct answer then passes an appropriate score to setScore()
+void checkAnswer(string correctAnswer, string answer)
+{
+	// erase specific characters from line
+	correctAnswer.erase(0, 1);
+	correctAnswer.erase(1, 99);
+
+	// convert string to lowercase
+	transform(correctAnswer.begin(), correctAnswer.end(), correctAnswer.begin(), ::tolower);
+
+	// if the selected answer is equal to the correct answer
+	if (correctAnswer == answer)
+	{
+		// output 'correct'
+		cout << "CORRECT!" << endl;
+		cout << endl;
+
+		// save correct score to names.txt
+		string score = "1";
+		setScore(score);
+	}
+	else
+	{
+		// output 'wrong'
+		cout << "WRONG." << endl;
+		cout << endl;
+
+		// save wrong score to names.txt
+		string score = "0";
+		setScore(score);
+	}
+}
+
+// this function checks if name exists, if not save user
+void checkName(string firstName, string lastName)
+{
+	string fullName = firstName + " " + lastName, name;
+	currentUser = fullName;
+	bool userFound = false;
+	bool endLoop = true;
+
+	// write questions from quiz.txt
+	ifstream file("names.txt");
+
+	// loop through names.txt
+	while (getline(file, name) && endLoop)
+	{
+		// if there is already user in names.txt, display previous score and set oldScore global variable
+		if (name.find(fullName) != string::npos)
+		{
+			cout << "Welcome back, " + currentUser + "!" << endl;
+			cout << "Previous Score: " << getScore() << "%" << endl;
+			oldScore = getScore();
+			userFound = true;
+			endLoop = false;
+		}
+	}
+
+	// if no user is found, append new user to names.txt
+	if (!userFound)
+	{
+		cout << "Welcome, " + currentUser + "!" << endl;
+		ofstream out;
+
+		// append new user name and empty score to names.txt
+		out.open("names.txt", ios::app);
+
+		out << endl << fullName;
+		out << endl << 0;
+		out << endl << 0;
+		out << endl << 0;
+		out << endl << 0;
+	}
+}
+
+// saves names.txt to vector
+void getNamesVector() {
+	// clear elements in vector
+	lines.clear();
+	// open file stream
+	ifstream file("names.txt");
+
+	string line;
+	// add each line in names.txt to the vector
+	while (getline(file, line))
+	{
+		if (!line.empty())
+		{
+			lines.push_back(line);
+		}
+	}
+}
+
+// this function checks a string for invalid characters
+bool contains_number(string c)
+{
+	if (c.find('!') != string::npos ||
+		c.find('@') != string::npos ||
+		c.find('#') != string::npos ||
+		c.find('$') != string::npos ||
+		c.find('%') != string::npos ||
+		c.find('^') != string::npos ||
+		c.find('&') != string::npos ||
+		c.find('*') != string::npos ||
+		c.find('(') != string::npos ||
+		c.find(')') != string::npos ||
+		c.find('~') != string::npos ||
+		c.find('{') != string::npos ||
+		c.find('}') != string::npos ||
+		c.find('[') != string::npos ||
+		c.find(']') != string::npos ||
+		c.find(':') != string::npos ||
+		c.find(';') != string::npos ||
+		c.find('8') != string::npos ||
+		c.find('0') != string::npos ||
+		c.find('1') != string::npos ||
+		c.find('2') != string::npos ||
+		c.find('3') != string::npos ||
+		c.find('4') != string::npos ||
+		c.find('5') != string::npos ||
+		c.find('6') != string::npos ||
+		c.find('7') != string::npos ||
+		c.find('8') != string::npos ||
+		c.find('9') != string::npos)
+	{
+		return true;
+	}
+
+	return false;
+}
+
+// MAIN
+int main()
+{
+	string firstName, lastName;
+	string continueQuiz;
+	bool validateFName = true, validateLName = true;
+
+	// get the users first name
+	while (validateFName) {
+		cout << "Enter your first name: ";
+		cin >> firstName;
+
+		if (contains_number(firstName) == true)
+		{
+			cout << "Please enter a valid first name. (A-Z only)" << endl;
+		}
+		else {
+			validateFName = false;
+		}
+	}
+
+	// get the users last name
+	while (validateLName) {
+		cout << "Enter your last name: ";
+		cin >> lastName;
+		if (contains_number(lastName) == true) {
+			cout << "Please enter a valid last name. (A-Z only)" << endl;
+		}
+		else {
+			validateLName = false;
+		}
+	}
+
+	// save names.txt to a vector
+	getNamesVector();
+
+	// check if there is already a registered user
+	checkName(firstName, lastName);
+
+	// save names.txt to a vector
+	getNamesVector();
+
+	// exit program bool
+	bool exit = true;
+
+	while (exit)
+	{
+		// write questions from quiz.txt
+		ifstream file("quiz.txt");
+		string quizOutput, answer, correctAnswer;
+		qNum = 0;
+		while (getline(file, quizOutput))
+		{
+			// check for whitespace
+			char found = quizOutput.find_first_not_of(" \t");
+
+			if (found != string::npos)
+			{
+				// if first character in line is '#' then format and output
+				if (quizOutput[found] == '#')
+				{
+					cout << quizOutput << endl;
+				}
+
+				// if first character in line is '&' then format and output
+				if (quizOutput[found] == '&')
+				{
+					if (containsUpperCase(quizOutput))
+					{
+						correctAnswer = quizOutput;
+					}
+					transform(quizOutput.begin(), quizOutput.end(), quizOutput.begin(), ::tolower);
+					cout << quizOutput.erase(0, 1) << endl;
+				}
+
+				// if first character in line is '$' then select answer and validate
+				if (quizOutput[found] == '$')
+				{
+					bool validateAnswer = true;
+					// loop until a valid selection is made.
+					while (validateAnswer)
+					{
+						cout << "Select an answer: ";
+						cin >> answer;
+						// set answer to lower case
+						transform(answer.begin(), answer.end(), answer.begin(), ::tolower);
+						// validate user input
+						if (answer == "a" || answer == "b" || answer == "c" || answer == "d")
+						{
+							validateAnswer = false;
+						}
+						else
+						{
+							cout << "Please make a valid selection. Enter a b c or d." << endl;
+						}
+					}
+
+					// display selected answer then run checkAnswer function
+					cout << "You chose " + answer << "... ";
+					checkAnswer(correctAnswer, answer);
+				}
+			}
+		}
+
+		// save score to names.txt
+		newScore = getScore();
+
+		// if score is better than last attempt
+		if (oldScore < newScore) {
+			saveScore();
+			cout << "New high score!" << endl;
+		}
+
+		// if score is equal to your last attempt
+		else if (oldScore == newScore)
+		{
+			cout << "You scored the same as your previous attempt!" << endl;
+		}
+
+		// if score is less than previous attempt
+		else
+		{
+			cout << "This attempt was not saved. Your previous score was higher." << endl;
+		}
+
+		// display score
+		cout << "You Scored: " << getScore() << "%" << endl;
+		cout << endl;
+
+		// choose whether to take test again or exit
+		bool optionValidation = true;
+		while (optionValidation)
+		{
+			cout << "Select an option: " << endl;
+			cout << "1. Take test again?" << endl;
+			cout << "2. Exit" << endl;
+			cout << "Option: ";
+			cin >> continueQuiz;
+			cin.ignore();
+
+			// retake the quiz
+			if (continueQuiz == "1")
+			{
+				exit = true;
+				optionValidation = false;
+			}
+			// exit application
+			else if (continueQuiz == "2")
+			{
+				exit = false;
+				optionValidation = false;
+			}
+			// validation
+			else
+			{
+				cout << "Choose a valid option. (Enter 1 or 2)" << endl;
+			}
+		}
+	}
+}
+
+
