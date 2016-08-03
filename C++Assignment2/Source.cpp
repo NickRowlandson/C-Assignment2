@@ -85,7 +85,7 @@ int main(){
 	HighScoreManager score1;
 	string user;
 	int selection;
-	bool cont, cont2;
+	bool cont;
 	cout << "WELCOME TO: High Score Manager!" << endl
 	<< "Enter your username: ";
 	cin >> user;
@@ -141,7 +141,6 @@ int main(){
 		else if (selection == 5) {
 			cout << "Thank you for using High Score Manager.";
 			cont = false;
-			cont2 = false;
 		}
 		else {
 			cout << "ERROR! Invalid Selection";
