@@ -286,7 +286,7 @@ void User::SetHighScore() {
 		}
 	}
 	// set specific lines in vector to new score
-	lines[line + 2] = "#" + scoreString;
+	lines[line + 2] = scoreString;
 	ofstream outputFile;
 	outputFile.open("names.txt");
 	// overwrite names.txt with updated vector
