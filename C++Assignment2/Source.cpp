@@ -5,13 +5,9 @@ HighScoreManager score1;
 
 // HIGHSCOREMANAGER CLASS METHODS
 void HighScoreManager::PrintHighScore() {
-	UpdateScoreVector();
-	int line2;
-	// for each record in the vector, check if it is equal to the entered username
-	for (int i = 0; i < lines2.size(); i++)
-	{
-		cout << lines2[i] << endl;
-	}
+	user1.UpdateUserVector();
+
+	cout << "Sorry! This feature isn't working yet..." << endl;
 }
 
 void HighScoreManager::UpdateScoreVector() {
@@ -59,6 +55,7 @@ void User::Login() {
 
 bool User::CheckIfUserExist(string user) {
 	user1.username = user;
+	score1.username = user;
 	bool userFound = false;
 	bool endLoop = true;
 	ifstream file("names.txt");
@@ -289,7 +286,7 @@ void User::SetHighScore() {
 		}
 	}
 	// set specific lines in vector to new score
-	lines[line + 2] = scoreString;
+	lines[line + 2] = "#" + scoreString;
 	ofstream outputFile;
 	outputFile.open("names.txt");
 	// overwrite names.txt with updated vector

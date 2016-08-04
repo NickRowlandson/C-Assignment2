@@ -6,9 +6,11 @@
 #include <iostream>
 #include <algorithm>
 #include <stdio.h>
+#include <stdlib.h>
 #include <ctype.h>
 #include <vector>
 #include <regex>
+#include <iomanip>
 #include <cstdlib>
 
 using namespace std;
@@ -20,9 +22,9 @@ public:
 	//HighScoreManager();
 	void PrintHighScore();
 	void UpdateScoreVector();
+	string username;
 
 private:
-	string username;
 	int score;
 	string date;
 };
