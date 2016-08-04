@@ -18,7 +18,7 @@ void HighScoreManager::UpdateScoreVector() {
 	// clear elements in vector
 	lines2.clear();
 	// open file stream
-	ifstream file("highScore.dat");
+	ifstream file("highScore.dat", ios::binary);
 
 	string line2;
 	// add each line in names.txt to the vector
@@ -319,7 +319,7 @@ void User::SetHighScore() {
 		// set specific lines in vector to new score
 		lines2[line2 + 1] = scoreString;
 		ofstream outputFile;
-		outputFile.open("highScore.dat");
+		outputFile.open("highScore.dat", ios::binary);
 		// overwrite highScore.dat with updated vector
 		for (int count = 0; count < lines.size(); count++)
 		{

@@ -7,3 +7,6 @@ Enter your score!
 96
 Enter your full name!
 999
+Tim
+Enter your full name!
+22
