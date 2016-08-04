@@ -188,10 +188,9 @@ void User::UpdateUserInfo(string user) {
 
 void User::SetHighScore(string user) {
 	int newScore;
+	string userName = user;
 	bool cont = true;
-
-	user1.UpdateUserVector();
-	score1.UpdateScoreVector();
+	bool found = false;
 
 	while (cont) {
 		cout << endl << "Enter your new high score: ";
@@ -206,10 +205,38 @@ void User::SetHighScore(string user) {
 		}
 		else {
 			cont = false;
+			cout << endl << "New High Score set to: " << newScore;
 		}
 	}
+
+	string scoreString = to_string(newScore);
 	
 	// UPDATE TXT AND DAT FILE WITH NEW HIGH SCORE HERE.
+	user1.UpdateUserVector();
+	score1.UpdateScoreVector();
+	int line;
+	// for each record in the vector, check if it is equal to the entered username
+	for (int i = 0; i < lines.size(); i++)
+	{
+		if (userName == lines[i])
+		{
+			line = i;
+			found = true;
+		}
+	}
+
+	// set specific lines in vector to new score
+	lines[line + 2] = scoreString;
+
+	ofstream outputFile;
+	outputFile.open("names.txt");
+	// overwrite names.txt with updated vector
+	for (int count = 0; count < lines.size(); count++)
+	{
+		outputFile << lines[count] << endl;
+	}
+
+	outputFile.close();
 }
 
 
@@ -236,7 +263,7 @@ int main(){
 		if (selection == 1) {
 			user1.SetHighScore(currentUser);
 			cont = true;
-			cout << "HIGH SCORE UPDATED" << endl;
+			cout << endl << "HIGH SCORE UPDATED" << endl;
 		}
 		else if (selection == 2) {
 			user1.UpdateUserInfo(currentUser);
