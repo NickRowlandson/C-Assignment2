@@ -18,8 +18,6 @@ vector<string> lines, lines2;
 class HighScoreManager {
 public:
 	//HighScoreManager();
-	void CreateHighScore();
-	void UpdateHighScore();
 	void PrintHighScore();
 	void UpdateScoreVector();
 
