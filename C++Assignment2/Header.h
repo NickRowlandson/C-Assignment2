@@ -37,7 +37,7 @@ public:
 	bool CheckIfUserExist(string);
 	void UpdateUserVector();
 	void UpdateUserInfo(string);
-	void DeleteUser(string);
+	bool DeleteUser(string);
 	void SetHighScore(string);
 
 private:

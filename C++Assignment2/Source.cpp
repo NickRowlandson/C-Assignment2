@@ -32,8 +32,8 @@ void User::Login() {
 		out.open("names.txt", ios::app);
 
 		out << endl << user;
-		out << endl << "$" << 0;
-		out << endl << "#";
+		out << endl << "Full Name: " ;
+		out << endl << "Score: ";
 
 		cout << "Welcome, " + currentUser + "!" << endl;
 	}
@@ -106,10 +106,78 @@ void HighScoreManager::UpdateScoreVector() {
 	}
 }
 
-void User::DeleteUser(string user) {
+bool User::DeleteUser(string user) {
 	user1.UpdateUserVector();
+
 	//DELETE USER
+	string userName;
+	bool found = false;
+
+	cout << "Enter the username you want to delete: ";
+	cin >> userName;
+
+	if (userName == currentUser) {
+		string response;
+		cout << "Are you sure you want to delete yourself?(y/n): ";
+		cin >> response;
+
+		if (response == "y" || response == "Y" || response == "yes") {
+
+		}
+		else if (response == "n" || response == "N" || response == "no") {
+			cout << "You chose not to delete yourself. Returning to menu." << endl;
+			return true;
+		}
+		else {
+			cout << "You entered an invalid response. Returning to menu." << endl;
+			return true;
+		}
+	}
+
+	int line;
+
+	// for each record in the vector, check if it is equal to the entered username
+	for (int i = 0; i < lines.size(); i++)
+	{
+		if (userName == lines[i])
+		{
+			line = i;
+			found = true;
+		}
+	}
+
+	// set specific lines in vector to null
+	lines[line] = "";
+	lines[line+1] = "";
+	lines[line+2] = "";
+
+	ofstream outputFile;
+
+	outputFile.open("names.txt");
+
+	// overwrite names.txt with updated vector
+	for (int count = 0; count < lines.size(); count++)
+	{
+		outputFile << lines[count] << endl;
+	}
+
+	outputFile.close();
+
+	if (!found) { // x was set to 0 at start, so if it didn't change, it means user entered the wrong name
+		cout << "The username you entered does not exist." << endl;
+		return true;
+	}
+	else { // x is not 0, it means user entered the correct name, print message that user data has been deleted
+		cout << "User data has been deleted." << endl;
+		if (userName == currentUser) {
+			return false;
+		}
+		else {
+			return true;
+		}
+	}
 }
+
 void User::UpdateUserInfo(string user) {
 	string name;
 	user1.UpdateUserVector();
@@ -159,9 +227,18 @@ int main(){
 			cout << "USER UPDATED" << endl;
 		}
 		else if (selection == 3) {
-			user1.DeleteUser(currentUser);
-			cont = false;
-			cout << "USER DELETED: Terminating Session" << endl;
+			if (user1.DeleteUser(currentUser)){
+				cont = true;
+			}else{
+				cout << "You've deleted yourself! Program terminating. Press enter to accept." << endl;
+				cin.ignore();
+				if (cin.get() == '\n') {
+					cont = false;
+				}
+				else {
+					cont = false;
+				}
+			}
 		}
 		else if (selection == 4) {
 			score1.PrintHighScore();
