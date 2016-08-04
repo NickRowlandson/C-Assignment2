@@ -2,8 +2,8 @@
 NAMES
 --
 Hooksme
-Full Name: Guy MAndoo
-Enter your score!
-96
+Nicholas Rowlandson
+#876
+Nick
 Enter your full name!
-999
+#123
