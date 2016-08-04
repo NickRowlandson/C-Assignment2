@@ -4,17 +4,26 @@ User user1;
 HighScoreManager score1;
 
 // HIGHSCOREMANAGER CLASS METHODS
-void HighScoreManager::CreateHighScore() {
-	//FUNCTION NOT REQUIRED
-}
-
-void HighScoreManager::UpdateHighScore() {
-	//FUNCTION NOT REQUIRED
-}
-
 void HighScoreManager::PrintHighScore() {
 
 	// LOOP THROUGH DAT FILE AND PRINT TABLE OF HIGH SCORES
+}
+
+void HighScoreManager::UpdateScoreVector() {
+	// clear elements in vector
+	lines2.clear();
+	// open file stream
+	ifstream file("highScore.dat");
+
+	string line2;
+	// add each line in names.txt to the vector
+	while (getline(file, line2))
+	{
+		if (!line2.empty())
+		{
+			lines2.push_back(line2);
+		}
+	}
 }
 
 // USER CLASS METHODS
@@ -86,22 +95,6 @@ void User::UpdateUserVector() {
 		if (!line.empty())
 		{
 			lines.push_back(line);
-		}
-	}
-}
-void HighScoreManager::UpdateScoreVector() {
-	// clear elements in vector
-	lines2.clear();
-	// open file stream
-	ifstream file("highScore.dat");
-
-	string line2;
-	// add each line in names.txt to the vector
-	while (getline(file, line2))
-	{
-		if (!line2.empty())
-		{
-			lines2.push_back(line2);
 		}
 	}
 }
