@@ -1,9 +1,9 @@
 --
 NAMES
 --
-Tim
-,
-44
 Hooksme
-Full Name: Nicholas Rowlandson
-3
+Full Name: Guy MAndoo
+Enter your score!
+96
+Enter your full name!
+999

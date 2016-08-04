@@ -230,7 +230,7 @@ void User::UpdateUserInfo() {
 	
 	if (found) {
 		// set specific lines in vector to null
-		lines[line + 1] = "Full Name: " + user1.firstNameLastName;
+		lines[line + 1] = user1.firstNameLastName;
 
 		ofstream outputFile;
 
@@ -338,9 +338,9 @@ void User::SetHighScore() {
 int main(){
 	int selection;
 	bool cont = true;
-	
-	user1.Login();
+
 	user1.UpdateUserVector();
+	user1.Login();
 
 	while (cont)
 	{
