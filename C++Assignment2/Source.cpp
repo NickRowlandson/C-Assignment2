@@ -13,6 +13,13 @@ void HighScoreManager::UpdateHighScore() {
 }
 
 void HighScoreManager::PrintHighScore() {
+	UpdateScoreVector();
+	int line2;
+	// for each record in the vector, check if it is equal to the entered username
+	for (int i = 0; i < lines2.size(); i++)
+	{
+		cout << lines2[i] << endl;
+	}
 
 	// LOOP THROUGH DAT FILE AND PRINT TABLE OF HIGH SCORES
 }
@@ -277,9 +284,8 @@ void User::SetHighScore() {
 
 	string scoreString = to_string(newScore);
 	
-	// UPDATE TXT AND DAT FILE WITH NEW HIGH SCORE HERE.
+	// UPDATE TXT FILE
 	user1.UpdateUserVector();
-	score1.UpdateScoreVector();
 	int line;
 	// for each record in the vector, check if it is equal to the entered username
 	for (int i = 0; i < lines.size(); i++)
@@ -290,10 +296,8 @@ void User::SetHighScore() {
 			found = true;
 		}
 	}
-
 	// set specific lines in vector to new score
 	lines[line + 2] = scoreString;
-
 	ofstream outputFile;
 	outputFile.open("names.txt");
 	// overwrite names.txt with updated vector
@@ -301,8 +305,41 @@ void User::SetHighScore() {
 	{
 		outputFile << lines[count] << endl;
 	}
-
 	outputFile.close();
+
+	// UPDATE DAT FILE
+	score1.UpdateScoreVector();
+	int line2;
+	// for each record in the vector, check if it is equal to the entered username
+	for (int i = 0; i < lines2.size(); i++)
+	{
+		if (user1.username == lines2[i])
+		{
+			line2 = i;
+			found = true;
+		}
+		else {
+			line2 = i;
+		}
+	}
+	if (found) 
+	{
+		// set specific lines in vector to new score
+		lines2[line2 + 1] = scoreString;
+		ofstream outputFile;
+		outputFile.open("highScore.dat");
+		// overwrite highScore.dat with updated vector
+		for (int count = 0; count < lines.size(); count++)
+		{
+			outputFile << lines[count] << endl;
+		}
+		outputFile.close();
+	}
+	else 
+	{
+		lines2.push_back(user1.username);
+		lines2.push_back(scoreString);
+	}
 }
 
 
