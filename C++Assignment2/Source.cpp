@@ -35,16 +35,16 @@ void User::Login() {
 		out << endl << "Full Name: " ;
 		out << endl << "Score: ";
 
-		cout << "Welcome, " + currentUser + "!" << endl;
+		cout << "Welcome, " + user1.username + "!" << endl;
 	}
 	else
 	{
-		cout << "Welcome back, " + currentUser + "!" << endl;
+		cout << "Welcome back, " + user1.username + "!" << endl;
 	}
 }
 
-bool User::CheckIfUserExist(string username) {
-	currentUser = username;
+bool User::CheckIfUserExist(string user) {
+	user1.username = user;
 	bool userFound = false;
 	bool endLoop = true;
 	ifstream file("names.txt");
@@ -106,8 +106,33 @@ void HighScoreManager::UpdateScoreVector() {
 	}
 }
 
-//DELETE USER
-bool User::DeleteUser(string user) {
+// View user info
+void User::ViewUserInfo() {
+	user1.UpdateUserVector();
+
+	bool found = false;
+	int line;
+
+	// for each record in the vector, check if it is equal to the current user
+	for (int i = 0; i < lines.size(); i++)
+	{
+		if (user1.username == lines[i])
+		{
+			line = i;
+			found = true;
+		}
+	}
+
+	cout << endl 
+		 << "YOUR INFORMATION:" << endl
+		 << "Username: " + lines[line + 0] << endl
+		 << lines[line + 1] << endl
+		 << "Highscore: " + lines[line + 2] << endl;
+
+}
+
+// Delete user
+bool User::DeleteUser() {
 	user1.UpdateUserVector();
 
 	string userName;
@@ -116,7 +141,7 @@ bool User::DeleteUser(string user) {
 	cout << "Enter the username you want to delete: ";
 	cin >> userName;
 
-	if (userName == currentUser) {
+	if (userName == user1.username) {
 		string response;
 		cout << "Are you sure you want to delete yourself?(y/n): ";
 		cin >> response;
@@ -169,7 +194,7 @@ bool User::DeleteUser(string user) {
 	}
 	else { // x is not 0, it means user entered the correct name, print message that user data has been deleted
 		cout << "User data has been deleted." << endl;
-		if (userName == currentUser) {
+		if (userName == user1.username) {
 			return false;
 		}
 		else {
@@ -179,7 +204,7 @@ bool User::DeleteUser(string user) {
 }
 
 // UPDATE name to new name
-void User::UpdateUserInfo(string user) {
+void User::UpdateUserInfo() {
 	user1.UpdateUserVector();
 
 	int line;
@@ -198,7 +223,7 @@ void User::UpdateUserInfo(string user) {
 	// for each record in the vector, check if it is equal to the entered username
 	for (int i = 0; i < lines.size(); i++)
 	{
-		if (currentUser == lines[i])
+		if (user1.username == lines[i])
 		{
 			line = i;
 			found = true;
@@ -228,9 +253,8 @@ void User::UpdateUserInfo(string user) {
 	}
 }
 
-void User::SetHighScore(string user) {
+void User::SetHighScore() {
 	int newScore;
-	string userName = user;
 	bool cont = true;
 	bool found = false;
 
@@ -260,7 +284,7 @@ void User::SetHighScore(string user) {
 	// for each record in the vector, check if it is equal to the entered username
 	for (int i = 0; i < lines.size(); i++)
 	{
-		if (userName == lines[i])
+		if (user1.username == lines[i])
 		{
 			line = i;
 			found = true;
@@ -294,26 +318,31 @@ int main(){
 	{
 		cout << endl << "Menu" << endl
 			<< "1. Enter your new high score" << endl
-			<< "2. Update your information" << endl
-			<< "3. Delete information" << endl
-			<< "4. Print all high scores" << endl
-			<< "5. Exit" << endl
+			<< "2. View your information" << endl
+			<< "3. Update your information" << endl
+			<< "4. Delete information" << endl
+			<< "5. Print all high scores" << endl
+			<< "6. Exit" << endl
 			<< "Enter your selection number: ";
 		cin >> selection;
 		cin.clear();
 		cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
 		if (selection == 1) {
-			user1.SetHighScore(currentUser);
+			user1.SetHighScore();
 			cont = true;
 			cout << endl << "HIGH SCORE UPDATED" << endl;
 		}
 		else if (selection == 2) {
-			user1.UpdateUserInfo(currentUser);
+			user1.ViewUserInfo();
 			cont = true;
 		}
 		else if (selection == 3) {
-			if (user1.DeleteUser(currentUser)){
+			user1.UpdateUserInfo();
+			cont = true;
+		}
+		else if (selection == 4) {
+			if (user1.DeleteUser()){
 				cont = true;
 			}else{
 				cout << "You've deleted yourself! Program terminating. Press enter to accept." << endl;
@@ -326,11 +355,11 @@ int main(){
 				}
 			}
 		}
-		else if (selection == 4) {
+		else if (selection == 5) {
 			score1.PrintHighScore();
 			cont = true;
 		}
-		else if (selection == 5) {
+		else if (selection == 6) {
 			cout << "Thank you for using High Score Manager.";
 			cont = false;
 		}

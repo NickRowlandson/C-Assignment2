@@ -12,7 +12,6 @@
 #include <cstdlib>
 
 using namespace std;
-string currentUser;
 vector<string> lines, lines2;
 
 // HighScoreManager class
@@ -37,9 +36,10 @@ public:
 	void Login();
 	bool CheckIfUserExist(string);
 	void UpdateUserVector();
-	void UpdateUserInfo(string);
-	bool DeleteUser(string);
-	void SetHighScore(string);
+	void UpdateUserInfo();
+	bool DeleteUser();
+	void SetHighScore();
+	void ViewUserInfo();
 
 private:
 	string username;
