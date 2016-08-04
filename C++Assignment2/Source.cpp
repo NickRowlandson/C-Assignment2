@@ -106,10 +106,10 @@ void HighScoreManager::UpdateScoreVector() {
 	}
 }
 
+//DELETE USER
 bool User::DeleteUser(string user) {
 	user1.UpdateUserVector();
 
-	//DELETE USER
 	string userName;
 	bool found = false;
 
@@ -178,12 +178,54 @@ bool User::DeleteUser(string user) {
 	}
 }
 
+// UPDATE name to new name
 void User::UpdateUserInfo(string user) {
-	string name;
 	user1.UpdateUserVector();
-	cout << endl << "Enter you first and last name: ";
-	cin >> name;
-	// UPDATE name to new name
+
+	int line;
+	string fname, lname;
+	bool found = false;
+
+	user1.UpdateUserVector();
+
+	cout << endl << "Enter you first name: ";
+	cin >> fname;
+	cout << endl << "Enter you last name: ";
+	cin >> lname;
+
+	user1.firstNameLastName = fname + " " + lname;
+
+	// for each record in the vector, check if it is equal to the entered username
+	for (int i = 0; i < lines.size(); i++)
+	{
+		if (currentUser == lines[i])
+		{
+			line = i;
+			found = true;
+		}
+	}
+	
+	if (found) {
+		// set specific lines in vector to null
+		lines[line + 1] = "Full Name: " + user1.firstNameLastName;
+
+		ofstream outputFile;
+
+		outputFile.open("names.txt");
+
+		// overwrite names.txt with updated vector
+		for (int count = 0; count < lines.size(); count++)
+		{
+			outputFile << lines[count] << endl;
+		}
+
+		outputFile.close();
+
+		cout << "User info updated successfully!" << endl;
+	}
+	else {
+		cout << "Uh-oh... Something went wrong!" << endl;
+	}
 }
 
 void User::SetHighScore(string user) {
@@ -219,6 +261,7 @@ int main(){
 	bool cont = true;
 	
 	user1.Login();
+	user1.UpdateUserVector();
 
 	while (cont)
 	{
@@ -241,7 +284,6 @@ int main(){
 		else if (selection == 2) {
 			user1.UpdateUserInfo(currentUser);
 			cont = true;
-			cout << "USER UPDATED" << endl;
 		}
 		else if (selection == 3) {
 			if (user1.DeleteUser(currentUser)){
