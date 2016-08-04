@@ -41,8 +41,8 @@ void User::Login() {
 		out.open("names.txt", ios::app);
 
 		out << endl << user;
-		out << endl << "Full Name: " ;
-		out << endl << "Score: ";
+		out << endl << "Enter your full name!" ;
+		out << endl << "Enter your score!";
 
 		cout << "Welcome, " + user1.username + "!" << endl;
 	}
@@ -119,8 +119,8 @@ void User::ViewUserInfo() {
 	cout << endl 
 		 << "YOUR INFORMATION:" << endl
 		 << "Username: " + lines[line + 0] << endl
-		 << lines[line + 1] << endl
-		 << "Highscore: " + lines[line + 2] << endl;
+		 << "Full Name: " + lines[line + 1] << endl
+		 << "Score: " + lines[line + 2] << endl;
 
 }
 
@@ -152,7 +152,7 @@ bool User::DeleteUser() {
 		}
 	}
 
-	int line;
+	int line = 0;
 
 	// for each record in the vector, check if it is equal to the entered username
 	for (int i = 0; i < lines.size(); i++)
@@ -169,23 +169,23 @@ bool User::DeleteUser() {
 	lines[line+1] = "";
 	lines[line+2] = "";
 
-	ofstream outputFile;
-
-	outputFile.open("names.txt");
-
-	// overwrite names.txt with updated vector
-	for (int count = 0; count < lines.size(); count++)
-	{
-		outputFile << lines[count] << endl;
-	}
-
-	outputFile.close();
-
-	if (!found) { // x was set to 0 at start, so if it didn't change, it means user entered the wrong name
+	if (!found) { // username not found
 		cout << "The username you entered does not exist." << endl;
 		return true;
 	}
-	else { // x is not 0, it means user entered the correct name, print message that user data has been deleted
+	else { // username found
+		ofstream outputFile;
+
+		outputFile.open("names.txt");
+
+		// overwrite names.txt with updated vector
+		for (int count = 0; count < lines.size(); count++)
+		{
+			outputFile << lines[count] << endl;
+		}
+
+		outputFile.close();
+
 		cout << "User data has been deleted." << endl;
 		if (userName == user1.username) {
 			return false;
@@ -313,7 +313,7 @@ int main(){
 			<< "1. Enter your new high score" << endl
 			<< "2. View your information" << endl
 			<< "3. Update your information" << endl
-			<< "4. Delete information" << endl
+			<< "4. Delete user" << endl
 			<< "5. Print all high scores" << endl
 			<< "6. Exit" << endl
 			<< "Enter your selection number: ";
