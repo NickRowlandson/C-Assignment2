@@ -255,6 +255,7 @@ void User::SetHighScore() {
 	int newScore;
 	bool cont = true;
 	bool found = false;
+	bool found2 = false;
 
 	while (cont) {
 		cout << endl << "Enter your new high score: ";
@@ -307,13 +308,13 @@ void User::SetHighScore() {
 		if (user1.username == lines2[i])
 		{
 			line2 = i;
-			found = true;
+			found2 = true;
 		}
 		else {
 			line2 = i;
 		}
 	}
-	if (found) 
+	if (found2) 
 	{
 		// set specific lines in vector to new score
 		lines2[line2 + 1] = scoreString;
