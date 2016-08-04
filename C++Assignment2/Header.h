@@ -9,6 +9,7 @@
 #include <ctype.h>
 #include <vector>
 #include <regex>
+#include <cstdlib>
 
 using namespace std;
 string currentUser;

@@ -188,12 +188,27 @@ void User::UpdateUserInfo(string user) {
 
 void User::SetHighScore(string user) {
 	int newScore;
+	bool cont = true;
 
 	user1.UpdateUserVector();
 	score1.UpdateScoreVector();
 
-	cout << endl << "Enter your new high score: ";
-	cin >> newScore;
+	while (cont) {
+		cout << endl << "Enter your new high score: ";
+		cin >> newScore;
+		cin.clear();
+		cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+		if (newScore > 1000 || newScore < 0)
+		{
+			cout << endl << "Invalid input. Please enter an integer between 0 and 1000";
+			cont = true;
+		}
+		else {
+			cont = false;
+		}
+	}
+	
 	// UPDATE TXT AND DAT FILE WITH NEW HIGH SCORE HERE.
 }
 
@@ -215,6 +230,8 @@ int main(){
 			<< "5. Exit" << endl
 			<< "Enter your selection number: ";
 		cin >> selection;
+		cin.clear();
+		cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
 		if (selection == 1) {
 			user1.SetHighScore(currentUser);
@@ -249,7 +266,7 @@ int main(){
 			cont = false;
 		}
 		else {
-			cout << "ERROR! Invalid Selection";
+			cout << "ERROR! Invalid Selection. Please enter a number between 1 and 5.";
 			cont = true;
 		}
 	} //ENDWHILE
